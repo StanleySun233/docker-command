@@ -28,16 +28,10 @@ docker run --restart=always -p 6379:6379 --name redis -d redis:6.2.1  --requirep
 
 ## 4. minio
 ```shell
-docker run \
--p 9000:9000 \
--p 9090:9090 \
---net=host \
---name minio \
--d --restart=always \
--e "MINIO_ACCESS_KEY=minioadmin" \
--e "MINIO_SECRET_KEY=minioadmin" \
--v /opt/minio/data:/data \
--v /opt/minio/config:/root/.minio \
- minio/minio server \
-/data --console-address ":9090" -address ":9000"
+docker run --name minio -d \
+  --restart=always \
+  -p 9000:9000 -p 9090:9090 \
+  -e MINIO_ROOT_USER=minioadmin \
+  -e MINIO_ROOT_PASSWORD=minioadmin \
+  minio/minio server /data --console-address ":9090" --address ":9000"
 ```
