@@ -40,7 +40,20 @@ docker run --name minio -d \
   -e MINIO_ROOT_PASSWORD=minioadmin \
   minio/minio server /data --console-address ":9090" --address ":9000"
 ```
-## 5. webssh
+## 5. sshwifty
 ```shell
-docker run -d  --net host --log-driver json-file --log-opt max-file=1 --log-opt max-size=100m --restart always --name webssh -e TZ=Asia/Shanghai -esavePass=true jrohy/webssh
+docker run --detach --restart always --publish 8182:8182 --name sshwifty niruix/sshwifty:latest
+```
+## 6.hed
+```shell
+docker run -d \
+  --name=heimdall \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=Asia/Shanghai \
+  -p 8001:80 \
+  -p 8002:443 \
+  -v /path/to/config:/config \
+  --restart unless-stopped \
+  linuxserver/heimdall
 ```
