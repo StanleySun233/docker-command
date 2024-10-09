@@ -40,3 +40,7 @@ docker run --name minio -d \
   -e MINIO_ROOT_PASSWORD=minioadmin \
   minio/minio server /data --console-address ":9090" --address ":9000"
 ```
+## 5. webssh
+```shell
+docker run -d  --net host --log-driver json-file --log-opt max-file=1 --log-opt max-size=100m --restart always --name webssh -e TZ=Asia/Shanghai -esavePass=true jrohy/webssh
+```
